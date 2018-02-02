@@ -1,3 +1,5 @@
+from datetime import timezone, datetime
+
 from django.db import models
 
 
@@ -9,6 +11,10 @@ class Question(models.Model):
     def __str__(self):
         return self.question_text
 
+    def was_published_recently(self):
+        """ 이 question의 게시일자가 현재 시각에서 1일 전보다 이후 """
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
@@ -18,4 +24,5 @@ class Choice(models.Model):
     def __str__(self):
         return '{} | {}'.format(
             self.question.question_text,
-            self.choice_text,)
+            self.choice_text,
+        )
