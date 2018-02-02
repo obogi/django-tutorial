@@ -45,7 +45,7 @@ def detail(request, question_id):
     #     # DoesNotExist예외가 발생 시
     #     # Http404에러를 발생시키면서 메시지를 전달
     #     raise Http404('Question does not exist')
-    question - get_object_or_404(Question, pk=question_id)
+    question = get_object_or_404(Question, pk=question_id)
     context = {
         'question': question,
     }
